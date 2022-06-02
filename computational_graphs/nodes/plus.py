@@ -1,4 +1,4 @@
-from ..computational_graphs import Node
+from .computational_graphs import Node
 
 class Plus(Node):
     def __init__(self, parent1 = None, parent2 = None):
