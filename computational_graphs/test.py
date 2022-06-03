@@ -1,11 +1,12 @@
-from nodes.operations import Plus
+from nodes.operations import Plus, MultiplyElementWise
 from nodes.basic import Value
+import numpy as np
 
 def main():
-    p1 = Plus()
-    p2 = Plus()
-    p3 = Plus(p1,p2)
-    print(p3)
+    v1 = Value(value=np.zeros((2,3)))
+    v2 = Value(value=np.zeros((2,3)))
+    
+    
 
 if __name__ == "__main__":
     main()

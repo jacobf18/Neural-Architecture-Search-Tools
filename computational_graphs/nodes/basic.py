@@ -2,7 +2,7 @@ from .node import Node
 import numpy as np
 
 class Value(Node):
-    def __init__(self, value = None):
+    def __init__(self, value):
         """
         Initializes a Plus node that adds to inputs together.
 
@@ -29,7 +29,7 @@ class Value(Node):
         Returns:
             Tuple[int]: the original shape of a parent
         """
-        return self.value.shape()
+        return self.value.shape
     
     def __str__(self) -> str:
         return f'Value of size {self.get_output_shape()}'

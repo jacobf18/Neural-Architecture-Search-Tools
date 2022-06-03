@@ -1,7 +1,7 @@
 from .node import Node
 
 class BinaryOperation(Node):
-    def __init__(self, parent1 = None, parent2 = None):
+    def __init__(self, parent1, parent2):
         """
         Initializes a Plus node that adds to inputs together.
 
@@ -13,7 +13,7 @@ class BinaryOperation(Node):
         
         
 class UnaryOperation(Node):
-    def __init__(self, parent=None):
+    def __init__(self, parent):
         self.parents = [parent]
 
 
@@ -25,7 +25,7 @@ class Plus(BinaryOperation):
         Returns:
             Tuple[int]: the original shape of a parent
         """
-        return self.parents[0]
+        return self.parents[0].get_output_shape()
     
     def check_if_parents_valid(self):
         return self.parents[0].get_output_shape() == self.parents[1].get_output_shape()
@@ -33,5 +33,16 @@ class Plus(BinaryOperation):
     def __str__(self) -> str:
         return f'{self.parents[0]} + {self.parents[1]}'
     
-class Multiply(BinaryOperation):
-    pass
+
+class MultiplyElementWise(BinaryOperation):
+    def get_output_shape(self):
+        return self.parents[0].get_output_shape()
+    
+    def check_if_parents_valid(self):
+        """
+        Check that the second parent is a scalar.
+        """
+        return self.parents[1].get_output_shape() == (1,)
+    
+    def __str__(self) -> str:
+        return f'Multiply {self.parents[0]} by scalar {self.parents[1]}'
