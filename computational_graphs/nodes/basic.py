@@ -1,7 +1,8 @@
 from .node import Node
+import numpy as np
 
-class Plus(Node):
-    def __init__(self, parent1 = None, parent2 = None):
+class Value(Node):
+    def __init__(self, value = None):
         """
         Initializes a Plus node that adds to inputs together.
 
@@ -9,7 +10,8 @@ class Plus(Node):
             parent1 (_type_, optional): _description_. Defaults to None.
             parent2 (_type_, optional): _description_. Defaults to None.
         """
-        self.parents = [parent1, parent2]
+        self.value = value
+        self.parents = [None]
     
     def check_if_parents_valid(self):
         """
@@ -18,7 +20,7 @@ class Plus(Node):
         Returns:
             bool: if the parent's shapes are the same.
         """
-        return self.parents[0] == self.parents[1]
+        return True
     
     def get_output_shape(self):
         """
@@ -27,4 +29,7 @@ class Plus(Node):
         Returns:
             Tuple[int]: the original shape of a parent
         """
-        return self.parents[0]
+        return self.value.shape()
+    
+    def __str__(self) -> str:
+        return f'Value of size {self.get_output_shape()}'
